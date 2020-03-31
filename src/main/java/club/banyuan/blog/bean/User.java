@@ -1,6 +1,8 @@
 package club.banyuan.blog.bean;
 
+import lombok.Data;
 
+@Data
 public class User {
     private Integer id;
     private String name;
