@@ -14,12 +14,9 @@ public class BlogController {
                        @RequestParam(required = false, defaultValue = "2") Integer size,
                        Model model
     ) {
-        User user = userService.getUserByName(username);
-        PageInfo blog = blogService.pageUserBlogs(username, page, size);
-        model.addAttribute("user", user);
-        model.addAttribute("blog", blog);
 
         return "list";
 
     }
+
 }
