@@ -5,17 +5,15 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 @Controller
 public class BlogController {
     @GetMapping("/user/{username}")
-    String getUserBlog(@PathVariable String username,
-                       @RequestParam(required = false, defaultValue = "1") Integer page,
-                       @RequestParam(required = false, defaultValue = "2") Integer size,
-                       Model model
-    ) {
+    @ResponseBody
+    String getUserBlog(@PathVariable String username) {
 
-        return "list";
+        return "访问"+username+"的博客";
 
     }
 
