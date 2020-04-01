@@ -7,6 +7,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 public class AboutController {
     @RequestMapping("/")
     String about(){
-        return "about";
+        return "index";
     }
 }

@@ -1,18 +1,46 @@
 package club.banyuan.blog.controller;
 
+import club.banyuan.blog.bean.Blog;
+import club.banyuan.blog.bean.User;
+import club.banyuan.blog.service.BlogService;
+import club.banyuan.blog.service.UserService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.RequestParam;
+
+
+import java.util.List;
 
 @Controller
 public class BlogController {
-    @GetMapping("/user/{username}")
-    @ResponseBody
-    String getUserBlog(@PathVariable String username) {
+    @Autowired
+    private UserService userService;
+    @Autowired
+    private BlogService blogService;
 
-        return "访问"+username+"的博客";
+    @GetMapping("/user/{username}")
+    String getUserBlog(@PathVariable String username,
+                       @RequestParam(required = false, defaultValue = "1") Integer page,
+                       @RequestParam(required = false, defaultValue = "2") Integer size,
+                       Model model
+    ) {
+        User user = userService.getUserByName(username);
+        List<Blog> blog = blogService.selectBlogsByUsername(username);
+        model.addAttribute("user", user);
+        model.addAttribute("blog", blog);
+        return "list";
 
     }
 
+    @GetMapping("/blog/{blogId}")
+    String getBlogByBlogId(@PathVariable Integer blogId,
+                    Model model
+    ){
+        Blog blog= blogService.getBlogById(blogId);
+        model.addAttribute("blog",blog);
+        return "list";
+    }
 }
