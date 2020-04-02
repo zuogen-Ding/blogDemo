@@ -8,5 +8,6 @@ import java.util.List;
 public interface BlogDao {
     Blog selectBlogById(Integer id);
     List<Blog> selectBlogsByUsername(String username);
-
+    List<Blog> selectBlogsDetailByUsername(String username);
+    void creatBlog(Blog blog);
 }

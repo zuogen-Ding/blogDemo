@@ -41,4 +41,8 @@ public class BlogController {
         model.addAttribute("blog", blog);
         return "item";
     }
+    @GetMapping("/edit")
+    String creatBlog(){
+        return "edit";
+    }
 }

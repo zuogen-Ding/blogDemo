@@ -1,4 +1,3 @@
-
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
@@ -36,7 +35,7 @@
         <id property="id" column="id"></id>
     </resultMap>
 
-    <select id="findBlogsDetailByUsername" resultMap="blogDetailMap">
+    <select id="selectBlogsDetailByUsername" resultMap="blogDetailMap">
         SELECT blog.id, blog.title, blog.content, blog.created_time, blog.user_id ,
         user.name, user.email , user.password,
         comment.content AS comment_content,
@@ -48,12 +47,19 @@
         ON comment.blog_id = blog.id WHERE user.name = #{username}
     </select>
 
-    <select id="findBlogById" resultType="club.banyuan.blog.bean.Blog">
+    <select id="selectBlogById" resultType="club.banyuan.blog.bean.Blog">
         SELECT * FROM blog WHERE `id` = #{id}
     </select>
 
-    <select id="findBlogsByUsername" resultMap="blogMap">
+    <select id="selectBlogsByUsername" resultMap="blogMap">
         SELECT blog.id, blog.title, blog.content, blog.created_time, blog.user_id, user.name, user.password, user.email
             FROM blog LEFT JOIN user ON blog.user_id = user.id WHERE user.name= #{username}
     </select>
+
+    <insert id="creatBlog" parameterType="club.banyuan.blog.bean.Blog">
+        <selectKey resultType="java.lang.Integer" order="AFTER" keyProperty="id">
+            select  last_insert_id()
+        </selectKey>
+        insert into blog (title,content , user_id) values (#{title},#{content},#{author_id})
+    </insert>
 </mapper>
