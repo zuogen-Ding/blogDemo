@@ -35,12 +35,10 @@ public class BlogController {
 
     }
 
-    @GetMapping("/blog/{blogId}")
-    String getBlogByBlogId(@PathVariable Integer blogId,
-                    Model model
-    ){
-        Blog blog= blogService.getBlogById(blogId);
-        model.addAttribute("blog",blog);
-        return "list";
+    @GetMapping("/blog/{id}")
+    String showBlogById(@PathVariable(value = "id")  Integer id, Model model) {
+        Blog blog = blogService.getBlogById(id);
+        model.addAttribute("blog", blog);
+        return "item";
     }
 }
