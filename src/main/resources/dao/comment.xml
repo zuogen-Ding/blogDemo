@@ -3,6 +3,6 @@
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper>
     <select id="selectCommentByBlogId" resultType="club.banyuan.blog.bean.Comment">
-        select * from comment where blog_id =#{id}
+        SELECT * FROM comment WHERE blog_id =#{id}
     </select>
 </mapper>

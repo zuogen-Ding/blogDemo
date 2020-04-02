@@ -58,8 +58,8 @@
 
     <insert id="creatBlog" parameterType="club.banyuan.blog.bean.Blog">
         <selectKey resultType="java.lang.Integer" order="AFTER" keyProperty="id">
-            select  last_insert_id()
+            SELECT  last_insert_id()
         </selectKey>
-        insert into blog (title,content , user_id) values (#{title},#{content},#{author_id})
+        INSERT INTO blog (title,content , user_id) VALUES (#{title},#{content},#{author_id})
     </insert>
 </mapper>
