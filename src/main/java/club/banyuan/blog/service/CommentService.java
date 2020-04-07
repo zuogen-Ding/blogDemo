@@ -15,7 +15,7 @@ public class CommentService {
         this.commentDao = commentDao;
     }
 
-    List<Comment> selectCommentByBlogId(Integer id){
+    public List<Comment> selectCommentByBlogId(Integer id){
         return commentDao.selectCommentByBlogId(id);
     }
 

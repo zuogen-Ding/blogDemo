@@ -6,5 +6,7 @@ import org.springframework.stereotype.Repository;
 @Repository
 public interface UserDao {
     User selectUserByName(String name);
+    User selectUserByEmail(String email);
+    User selectUserByBlogId(Integer id);
 
 }

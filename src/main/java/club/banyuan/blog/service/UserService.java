@@ -17,4 +17,11 @@ public class UserService {
         return userDao.selectUserByName(name);
     }
 
+    public User getUserByEmail(String email) {
+        return userDao.selectUserByEmail(email);
+    }
+
+    public User getUsrByBlogId(Integer id){
+        return userDao.selectUserByBlogId(id);
+    }
 }

@@ -4,23 +4,19 @@
 
 <mapper namespace="club.banyuan.blog.dao.BlogDao">
 
-    <resultMap id="blogDetailMap" type="club.banyuan.blog.bean.Blog" autoMapping="true">
+    <resultMap id="BlogDetailByBlogId" type="com.banyuan.springdemo.bean.Blog" autoMapping="true">
         <id property="id" column="id"></id>
-        <association property="author" column="user_id" resultMap="userMap" autoMapping="true" javaType="club.banyuan.blog.bean.User">
-            <id property="id" column="user_id"></id>
+        <association property="author" javaType="com.banyuan.springdemo.bean.User" autoMapping="true" columnPrefix="author_">
+            <id property="id" column="id"></id>
+
         </association>
-        <collection property="comments" ofType="club.banyuan.blog.bean.Comment" autoMapping="true">
-            <id property="id" column="comment_id"></id>
-            <id property="content" column="comment_content"></id>
-            <id property="createdTime" column="comment_created_time"></id>
-            <association property="commenter" resultMap="commenterMap"></association>
+        <collection property="comments" ofType="com.banyuan.springdemo.bean.Comment" autoMapping="true" columnPrefix="comment_" >
+            <id property="id" column="id"></id>
+            <id property="createdTime" column="created_time"></id>
+            <association property="commenter" javaType="com.banyuan.springdemo.bean.User" autoMapping="true" columnPrefix="commenter_">
+                <id property="id" column="id"></id>
+            </association>
         </collection>
-    </resultMap>
-
-
-    <resultMap id="commenterMap" type="club.banyuan.blog.bean.User">
-        <id property="id" column="comment_user_id"></id>
-        <id property="name" column="comment_user_name"
     </resultMap>
 
 
@@ -62,4 +58,41 @@
         </selectKey>
         INSERT INTO blog (title,content , user_id) VALUES (#{title},#{content},#{author_id})
     </insert>
+
+    <update id="updateBlog" parameterType="club.banyuan.bean.Blog">
+        update blog set title=#{title},content=#{content} where id=#{id}
+    </update>
+    <!--通过blog id删除blog-->
+    <delete id="deleteBlog">
+        delete from blog where id=#{blogId}
+    </delete>
+
+    <select id="selectAllBlogs" resultMap="selectBlogByUsername">
+      select
+      blog.id,blog.title,blog.content,blog.created_time,
+      author.id as author_id,
+      author.name as author_name,
+      author.email as author_email
+      from blog join
+      user as author
+      on blog.user_id=author.id
+      order by blog.id desc
+    </select>
+
+    <select id="selectBlogByKeyword" resultMap="selectBlogByUsername">
+      select
+      blog.id,blog.title,blog.content,blog.created_time,
+      author.id as author_id,
+      author.name as author_name,
+      author.email as author_email
+      from blog join
+      user as author
+      on blog.user_id=author.id
+      where
+      blog.id like concat('%',#{keyword},'%')
+      or blog.title like concat('%',#{keyword},'%')
+      or blog.content like concat('%',#{keyword},'%')
+      or blog.created_time like concat('%',#{keyword},'%')
+    </select>
+
 </mapper>

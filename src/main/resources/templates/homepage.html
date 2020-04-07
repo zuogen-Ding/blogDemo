@@ -1,0 +1,103 @@
+
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org">
+
+<head lang="en">
+    <meta charset="UTF-8">
+    <title>文章列表</title>
+    <link rel="stylesheet" href="//cdn.bootcss.com/bootstrap/3.3.4/css/bootstrap.min.css">
+    <link rel="stylesheet" href="/css/footer.css">
+    <link rel="stylesheet" href="/css/sidbar.css">
+    <link rel="stylesheet" href="/css/blog.css">
+    <script src="//cdn.bootcss.com/jquery/1.11.2/jquery.min.js"></script>
+    <script src="//cdn.bootcss.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
+    <style >
+        div{
+            left: 15%;
+        }
+    </style>
+</head>
+
+<body>
+<nav class="navbar navbar-inverse navbar-fixed-top">
+    <div class="container">
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="/homepage">首页</a>
+        </div>
+        <form class="navbar-form navbar-right" action="/search" method="post">
+            <input type="text" class="form-control" placeholder="全文搜索..." name="keyword">
+            <input type="submit" class="form-control" value="搜索">
+        </form>
+    </div>
+    </div>
+</nav>
+
+<div class="container">
+
+    <div class="page-header" align="center">
+        <a href="/homepage">
+            <h1 style="color: black"> 最新推荐的博客
+                <small>实时热点</small>
+            </h1>
+        </a>
+    </div>
+
+    <div class="row">
+
+        <div class="col-sm-8">
+            <div class="blog-post" th:each="blog: ${blogs.list}">
+                <h3 class="blog-post-title"><a th:text="${blog.title}" th:href="@{'/blog/' + ${blog.id}}">"${blog.title}"</a></h3>
+                <p class="blog-post-meta">2015年2月3日 作者：<a th:text="${blog.author.name}" th:href="@{'/blogger/' + ${blog.author.name}}">"${blog.author.name}"</a></p>
+                <p class="blog-post-content" th:text="${blog.content}">"${blog.content}"</p>
+            </div>
+
+            <hr>
+
+            <div class="blog-post" th:remove="all">
+                <h3 class="blog-post-title"><a href="./item.html">Vel volutpat dictum sagittis lacus</a></h3>
+                <p class="blog-post-meta">2015年2月3日 标签：<a href="#">Linux</a></p>
+                <p class="blog-post-content">Morbi pede vestibulum, nisl orci suspendisse. Amet erat gravida fringilla aliquam
+                    metus, dui vitae cras metus varius etiam tempus, in et. Dui venenatis dolor, amet magna facilisis, fames ut
+                    imperdiet eros ut ligula justo, et non viverra a viverra mollis, arcu gravida. Fermentum eu erat, eros enim
+                    nulla vivamus praesent hymenaeos dui. Sollic.</p>
+            </div>
+
+            <hr>
+
+            <div class="blog-post" th:remove="all">
+                <h3 class="blog-post-title"><a href="./item.html">Donec mauris nullam praesent eget</a></h3>
+                <p class="blog-post-meta">2015年2月3日 标签：<a href="#">Web开发</a></p>
+                <p class="blog-post-content">Laoreet magna sit gravida eu neque, erat porttitor aenean iaculis leo ac, aliquam
+                    commodo malesuada ullamcorper, iaculis interdum quam, dui tortor id. Convallis felis nunc condimentum.</p>
+            </div>
+
+            <hr>
+
+            <nav>
+                <ul class="pager">
+                    <li th:if="${blogs.hasPreviousPage}" class="previous"><a th:href="@{'?page=' + ${blogs.prePage}}"><span aria-hidden="true">&larr;</span> 上一页</a></li>
+                    <li th:if="${blogs.hasNextPage}" class="next"><a th:href="@{'?page=' + ${blogs.nextPage}}">下一页 <span aria-hidden="true">&rarr;</span></a></li>
+                    <!--          <li class="previous"><a href="#"><span aria-hidden="true">&larr;</span> 上一页</a></li>-->
+                    <!--          <li th:unless=${blogs.last} class="next"><a th:href="@{'/blogs?page=' + ${blogs.number + 1}}">下一页 <span aria-hidden="true">&rarr;</span></a></li>-->
+                </ul>
+            </nav>
+
+        </div>
+
+    </div>
+
+</div>
+
+<footer>
+    &copy; 2020 半圆学社, Inc. &middot; <a href="#">隐私</a> &middot; <a href="#">条款</a>
+</footer>
+
+</body>
+</html>

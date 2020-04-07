@@ -28,7 +28,7 @@
     </div>
     <div id="navbar" class="navbar-collapse collapse">
       <ul class="nav navbar-nav">
-        <li><a href="about.html">首页</a></li>
+        <li><a href="/homepage">首页</a></li>
         <li><a href="#">最近</a></li>
         <li><a href="#">归档</a></li>
         <li><a href="#">关于</a></li>
@@ -108,14 +108,14 @@
       <section class="comment-list">
         <h4 class="page-header">文章评论</h4>
         <div class="create-comment clearfix">
-            <form action="/blogs/blogId/comments" method="post" th:action="|/blogs/${blog.id}/comments|">
-<!--              <form action="/blogs/${blog.id}/comments" method="post">-->
-          <textarea id="content" name="content" rows="3"
-                    class="form-control" placeholder="添加新评论"></textarea>
-<!--          <a class="btn btn-success btn-sm btn-publish pull-right" type="submit" href="#">-->
+          <form action="/blogs/blogId/comments" method="post" th:action="|/blogs/${blog.id}/comments|">
+            <!--              <form action="/blogs/${blog.id}/comments" method="post">-->
+            <textarea id="content" name="content" rows="3"
+                      class="form-control" placeholder="添加新评论"></textarea>
+            <!--          <a class="btn btn-success btn-sm btn-publish pull-right" type="submit" href="#">-->
             <input class="btn btn-success btn-sm btn-publish pull-right" type="submit" href="#">
             发布评论</input>
-            </form>
+          </form>
         </div>
         <ul class="list-unstyled">
           <li class="clearfix content comment-item" th:each="comment: ${comments}">
@@ -125,11 +125,13 @@
               <p class="blog-post-meta">2015年2月3日 标签：<a href="#">Web开发</a></p>
               <p class="blog-post-content" th:text="${blog.content}">"${blog.content}"</p>
               -->
+
             <p>
-              <a href="#" th:text="${comment.userId}">"${comment.userId}",</a>
+              <a href="#" th:text="${comment.commenter.name}">"${comment.commenter.name}",</a>
               <span class="text-muted date" th:text="${comment.createdTime}"> "${comment.createdTime}"</span>
               <textarea disabled th:text="${comment.content}">"${comment.content}"</textarea>
             </p>
+
           </li>
           <li class="clearfix" th:remove="all">
             <img src="/img/catty.jpeg" alt="" class="avatar pull-left">

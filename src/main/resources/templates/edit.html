@@ -55,7 +55,7 @@
 
     <div class="col-sm-8">
 
-      <form class="form-create-blog" method="post" th:action="|/blogs/${blog.id}/edit|">
+      <form class="form-create-blog" method="post" th:action="|/blog/${blog.id}/edit|">
         <input type="hidden" name="_method" value="put">
         <div class="form-group">
           <label for="title">标题</label>
@@ -77,7 +77,7 @@
     <div class="col-sm-3 col-sm-offset-1">
       <div class="sidebar-module sidebar-module-inset">
         <div class="avatar">
-<!--          <img class="img-circle img-rounded img-thumbnail avatar" src="static/img/catty.jpeg">-->
+          <!--          <img class="img-circle img-rounded img-thumbnail avatar" src="static/img/catty.jpeg">-->
           <img class="img-circle img-rounded img-thumbnail avatar" src="/img/catty.jpeg">
           <div>
             <h4>Lorem</h4>

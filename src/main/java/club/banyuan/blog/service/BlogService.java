@@ -23,4 +23,29 @@ public class BlogService {
         return blogDao.selectBlogById(id);
     }
 
+    public void createBlog(Blog blog){
+        blogDao.creatBlog(blog);
+    }
+
+    public void deleteBlog(Integer id){
+        blogDao.deleteBlog(id);
+    }
+
+    public void updateBlog(Blog blog){
+        blogDao.updateBlog(blog);
+    }
+
+    public Blog selectBlogsDetailByBlogId (Integer id){
+        return blogDao.selectBlogsDetailByBlogId(id);
+
+    }
+
+    public List<Blog> selectAllBlogs(){
+        return blogDao.selectAllBlogs();
+    }
+
+    public List<Blog> selectBlogByKeyword(String keyword){
+        return blogDao.selectBlogByKeyWord(keyword);
+    }
+
 }
