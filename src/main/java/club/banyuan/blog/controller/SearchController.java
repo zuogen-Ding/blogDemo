@@ -22,63 +22,19 @@ public class SearchController {
 
     //通过参数查找对应的值并返回
     @GetMapping("/search")
-    String getResultBySearch(@RequestParam Optional<Integer> page,
-                             @RequestParam Optional<Integer> size,
-                             HttpSession session, Model model){
-        String keyword =(String) session.getAttribute ("KEYWORD");
-        BlogPageInfo(keyword,page,size,model);
-        session.removeAttribute ("KEYWORD");
-        return "homepage";
-    }
+    String getResultBySearch(@RequestParam(required = false, defaultValue = "1") Integer page,
+                             @RequestParam(required = false, defaultValue = "2") Integer size,
+                             HttpSession session,
+                             Model model) {
 
-    //搜索post方式
-    @PostMapping("/search")
-    String getResultByKeyword(@RequestParam(value = "keyword") String keyword,
-                              @RequestParam Optional<Integer> page,
-                              @RequestParam Optional<Integer> size,
-                              Model model, HttpSession session){
-        BlogPageInfo(keyword, page, size, model);
-        session.setAttribute ("KEYWORD",keyword);
-        return "homepage";
-    }
-
-
-    @GetMapping("/UserSearch")
-    String getUserResultBykeyword(@RequestParam Optional<Integer> page,
-                                  @RequestParam Optional<Integer> size,
-                                  Model model, HttpSession session){
-        String keyword =(String) session.getAttribute ("USERKEYWORD");
-        List<Blog> blogs=blogService.selectBlogByKeyword(keyword);
-
-        BlogPageInfo(keyword,page,size,model);
-
-        session.removeAttribute ("USERKEYWORD");
-
+        String keyword = (String) session.getAttribute("KEYWORD");
+        PageInfo blog = blogService.pageUserBlogsByKeyWord(keyword, page, size);
+        session.removeAttribute("KEYWORD");
+        model.addAttribute("blog",blog);
         return "list";
     }
 
-    @PostMapping("/UserSearch")
-    String getUserResult(@RequestParam(value = "keyword") String keyword,
-                         @RequestParam Optional<Integer> page,
-                         @RequestParam Optional<Integer> size,
-                         Model model, HttpSession session){
-        List<Blog> blogs=blogService.selectBlogByKeyword(keyword);
 
-        BlogPageInfo(keyword,page,size,model);
 
-        session.setAttribute ("USERKEYWORD",keyword);
-        return "list";
-    }
 
-    //抽取公共方法
-    private void BlogPageInfo(String keyword, Optional<Integer> page,
-                              Optional<Integer> size, Model model){
-        PageHelper.startPage (page.orElse (1),size.orElse (10));
-        List<Blog> blogs=blogService.selectBlogByKeyword(keyword);
-
-        PageInfo<Blog> pageInfo=new PageInfo<> (blogs);
-
-        model.addAttribute ("blogs",pageInfo);
-
-    }
 }

@@ -6,6 +6,7 @@ import club.banyuan.blog.bean.User;
 import club.banyuan.blog.service.BlogService;
 import club.banyuan.blog.service.CommentService;
 import club.banyuan.blog.service.UserService;
+import com.github.pagehelper.PageInfo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -40,7 +41,7 @@ public class BlogController {
                        Model model
     ) {
         User user = userService.getUserByName(username);
-        List<Blog> blog = blogService.selectBlogsByUsername(username);
+        PageInfo blog = blogService.pageUserBlogsByUsername(username, page, size);
         model.addAttribute("user", user);
         model.addAttribute("blog", blog);
         return "list";
