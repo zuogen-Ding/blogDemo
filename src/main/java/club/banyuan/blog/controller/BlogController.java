@@ -54,6 +54,8 @@ public class BlogController {
         model.addAttribute("blog", blog);
         return "item";
     }
+
+
     @GetMapping("blog/edit")
     String createBlog(@RequestParam(value = "title") String title,
                 @RequestParam(value = "content") String content,
@@ -72,7 +74,6 @@ public class BlogController {
     @DeleteMapping("blog/{blogId}")
     String deleteBlogByBlogId(@PathVariable(value = "blogId") Integer blogId,
                               HttpSession session ){
-        //取出session中User
         User user=(User)session.getAttribute ("USER");
         Blog blog = blogService.selectBlogsDetailByBlogId (blogId);
         if(user.getName ().equals (blog.getAuthor ().getName ())){
@@ -99,7 +100,6 @@ public class BlogController {
         blog.setTitle(title);
         blog.setContent(content);
         blogService.updateBlog(blog);
-
         return "redirect:/blog/"+id;
     }
 }
