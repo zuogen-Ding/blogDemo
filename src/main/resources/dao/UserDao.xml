@@ -11,4 +11,10 @@
     <select id="getUserByBlogId" resultType="club.banyuan.blog.bean.User" >
         select u.* from (user as u join blog as b on u.id =b.user_id) where b.id=#{id}
     </select>
+    <update id="updatePasswd">
+        UPDATE user SET password=#{passwd} where `id` = #{id}
+    </update>
+    <update id="updateUser">
+        update user set avatar=#{avatar} where id=#{id}
+    </update>
 </mapper>

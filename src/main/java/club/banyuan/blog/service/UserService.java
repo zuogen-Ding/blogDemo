@@ -21,7 +21,14 @@ public class UserService {
         return userDao.selectUserByEmail(email);
     }
 
+    public void updatePasswd(String newPasswd, Integer id) {
+        userDao.updatePassword(newPasswd, id);
+    }
     public User getUsrByBlogId(Integer id){
         return userDao.selectUserByBlogId(id);
+    }
+
+    public void setUserByAvatar(Integer id, String avatar) {
+        userDao.updateUser(id,avatar);
     }
 }
